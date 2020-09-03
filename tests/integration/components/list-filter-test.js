@@ -29,7 +29,7 @@ module('Integration | Component | list-filter', function(hooks) {
     `);
 
     assert.equal(this.element.querySelectorAll('.city').length, 3, 'should show all 3 listings');
-    assert.equal(this.element.querySelector('.city').textContent.trim(), 'should show city name');
+    assert.equal(this.element.querySelector('.city').textContent.trim(), 'San Francisco', 'should show city name');
   });
 
   test('should update with matching listings', async function (assert) {

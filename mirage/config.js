@@ -1,9 +1,8 @@
 export default function() {
   this.namespace = '/api';
 
-  this.get('/rentals', function() {
-    return {
-      data: [{
+  this.get('/rentals', function(db, request) {
+    const rentals = [{
         type: 'rentals',
         id: 'grand-old-mansion',
         attributes: {
@@ -40,7 +39,14 @@ export default function() {
           description: "Convenience is at your doorstep with this charming downtown rental. Great restaurants and active night life are within a few feet."
         }
       }]
-    };
+      if(request.queryParams.city !== undefined) {
+        let filteredRentals = rentals.filter(function(i) {
+          return i.attributes.city.toLowerCase().indexOf(request.queryParams.city.toLowerCase()) !== -1;
+        });
+        return { data: filteredRentals };
+      } else {
+        return { data: rentals };
+      }
   });
 }
 

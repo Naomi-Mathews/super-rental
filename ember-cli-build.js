@@ -3,8 +3,17 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
+  let environment = process.env.EMBER_ENV;
+  let pluginsToBlacklist =
+    environment === 'production' ? ['ember-freestyle', 'freestyle'] : [];
+
   let app = new EmberApp(defaults, {
-    // Add options here
+    addons: {
+      blacklist: pluginsToBlacklist,
+    },
+    freestyle: {
+      snippetSearchPaths: ['lib/freestyle/app'],
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
